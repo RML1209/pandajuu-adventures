@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panda Juu Adventures - Safari na Milima Tanzania</title>
+    <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+
+<style>
+/* ====================== RESET ====================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    color: white;
+}
+
+/* ====================== COLORS ====================== */
+:root {
+    --primary-color:   #008000;
+    --primary-dark:    #006400;
+    --secondary-color: #4682B4;
+    --light:           #f8f9fa;
+    --dark:            #1a1a1a;
+}
+
+/* ====================== BACKGROUND SLIDESHOW ====================== */
+.background-slideshow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+}
+
+.background-slideshow .slide {
+    position: absolute;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.background-slideshow .slide.active {
+    opacity: 1;
+}
+
+/* overlay */
+.background-slideshow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+}
+
+/* ====================== MAIN CONTENT ====================== */
+.content-overlay {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+  order-radius-bottomleft: 50px;
+  border-bottom-right-radius: 10px;
+}
+
+/* ====================== NAVIGATION ====================== */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 65px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.website-name.tourism-name {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--secondary-color);
+    letter-spacing: 3px;
+    transition: color .4s;
+}
+
+.website-name:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 18px;
+    font-weight: 600;
+    font-size: 12px;
+    transition: color .3s;
+    text-decoration: none;
+    border: 1px solid;
+    border-radius: 12px;
+    padding-bottom: 10px;
+    padding: 8px;
+   
+    color: yellow;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+   background: white;  
+}
+
+/* ====================== SEARCH ====================== */
+.tourism-search {
+    max-width: 750px;
+    margin: 50px auto;
+    display: flex;
+    gap: 12px;
+}
+
+.search-input,
+.search-button {
+    padding: 16px 24px;
+    border-radius: 50px;
+    border: none;
+    font-size: 1.1rem;
+}
+
+.search-input {
+    flex: 1;
+    background: rgba(255,255,255,0.92);
+    color: #222;
+}
+
+.search-button {
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background .3s;
+}
+
+.search-button:hover {
+    background: var(--primary-dark);
+}
+
+/* ====================== HERO TEXT ====================== */
+.main-focus {
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.tourism-slogan {
+    font-size: 4rem;
+    font-weight: 900;
+    text-shadow: 2px 2px 18px rgba(0,0,0,0.9);
+    line-height: 1.2;
+}
+
+/* ====================== BUTTONS ====================== */
+.call-to-action {
+    text-align: center;
+    margin: 60px 0 40px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 18px 40px;
+    margin: 0 15px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all .4s;
+}
+
+.btn.primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 3px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn.secondary:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+/* ====================== INFO STRIP ====================== */
+.info-strip {
+    text-align: center;
+    padding: 18px;
+    background: rgba(0,0,0,0.55);
+    margin: 0 5% 40px;
+    border-radius: 10px;
+    font-size: 1.15rem;
+}
+
+.info-strip span {
+    margin: 0 25px;
+}
+
+/* ====================== FOOTER ====================== */
+.site-footer {
+    background: var(--dark);
+    color: #ccc;
+    padding: 60px 5% 30px;
+}
+
+.site-footer h3 {
+    color: var(--secondary-color);
+    border-bottom: 3px solid var(--secondary-color);
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    text-align: center;
+    padding-top: 25px;
+    border-top: 1px solid #444;
+    font-size: .9rem;
+}
+
+/* ====================== RESPONSIVE ====================== */
+@media (max-width: 868px) {
+    .top-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links a {
+        margin: 0 12px;
+    }
+
+    .tourism-slogan {
+        font-size: 3rem;
+    }
+
+    .tourism-search {
+        flex-direction: column;
+    }
+
+    .btn {
+        display: block;
+        margin: 15px auto;
+        width: 90%;
+        max-width: 320px;
+    }
+
+    .info-strip span {
+        display: block;
+        margin: 10px 0;
+    }
+}
+/* ====================== SOCIAL MEDIA LINKS ====================== */
+.social-links {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1); /* Rangi hafifu */
+    color: white;
+    margin: 0 10px;
+    border-radius: 50%; /* Mviringo */
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Rangi ikibadilika ukigusa (Hover) */
+.social-links a:hover {
+    background: var(--primary-color); /* Kijani chako */
+    border-color: var(--primary-color);
+    transform: translateY(-5px); /* Inapanda juu kidogo */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+</style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND SLIDESHOW -->
+    <div class="background-slideshow">
+        <img src="tourism1.jpg" class="slide" alt="Serengeti">
+        <img src="tourism2.jpg" class="slide" alt="Kilimanjaro">
+        <img src="tourism3.jpg" class="slide" alt="Zanzibar">
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-overlay">
+
+        <!-- NAV -->
+        <nav class="top-nav">
+            <div class="logo-area">
+                <img src="tourism_logo.png" class="logo">
+                <h1 class="website-name tourism-name">PANDA JUU ADVENTURES</h1>
+            </div>
+
+            <div class="nav-links">
+                <a href="#safari">Safari</a>
+                <a href="#milima">Milima</a>
+                <a href="#fukwe">Fukwe</a>
+                <a href="#wasiliana">Wasiliana</a>
+            </div>
+        </nav>
+
+        <!-- SEARCH -->
+        <div class="tourism-search">
+            <select class="search-input">
+                <option disabled selected>Chagua Package ya Safari.</option>
+                <option value="wildlife">Wildlife Safari</option>
+                <option value="trekking">Mountain Trekking</option>
+                <option value="beach">Beach Holiday</option>
+                <option value="combined">Safari + Beach</option>
+            </select>
+            <button class="search-button">Tafuta Package</button>
+        </div>
+
+        <!-- SLOGAN -->
+        <div class="main-focus">
+            <p class="tourism-slogan">Gundua Uzuri Usio na Mwisho wa Tanzania.</p>
+        </div>
+
+        <!-- CTA BUTTONS -->
+        <div class="call-to-action">
+            <a href="#packages" class="btn primary">Angalia Packages Zote</a>
+            <a href="#book" class="btn secondary">Weka Nafasi Sasa</a>
+        </div>
+
+        <!-- INFO -->
+        <div class="info-strip">
+            <span>Wataalamu wa Safari tangu 2010</span>
+            <span>Namba: +255 621 128 568</span>
+        </div>
+
+    </div>
+
+        <footer class="site-footer">
+        <h3>Wasiliana Nasi</h3>
+        <p>Arusha | Zanzibar</p>
+        <p>+255 621 128 568</p>
+        <p>info@pandajuuadventures.com</p>
+
+        <div class="social-links">
+            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" title="TripAdvisor"><i class="fas fa-plane-departure"></i></a>
+        </div>
+
+        <div class="footer-bottom">
+            © <span id="year"></span> Panda Juu Adventures. Haki zote zimehifadhiwa.
+        </div>
+    </footer>
+
+
+    <!-- JS -->
+    <script>
+        // Badilisha mwaka
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Slideshow
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+
+        function nextSlide() {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (slides.length > 0) {
+                slides[0].classList.add("active");
+                setInterval(nextSlide, 7000);
+            }
+        });
+    </script>
+
+</body>
+</html>
